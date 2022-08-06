@@ -22,8 +22,8 @@ class App extends React.Component {
 
   render() {
 
-    const filteredRobots = users.length > 0 && users.filter(item => (
-      item.name + '!'
+    const filteredRobots = users.filter(item => (
+      item.name.toLowerCase().includes(this.state.searchInput.toLowerCase())
     ))
 
     console.log("Filtered Robots: ", filteredRobots);
@@ -32,7 +32,7 @@ class App extends React.Component {
       <div className="">
         <h1 style={{ textAlign: 'center' }}>Robofriends</h1>
         <SearchBox updateSearchInput={this.updateSearchInput}/>
-        <CardList clients={users}/>
+        <CardList clients={filteredRobots}/>
       </div>
     );
   }
