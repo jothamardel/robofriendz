@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import SearchBox from './SearchBox';
-import CardList from './CardList';
+import SearchBox from '../components/searchBox/SearchBox';
+import CardList from '../components/cardList/CardList';
 
 
 function App() {
@@ -29,8 +29,7 @@ function App() {
       setLoading(false);
     })
     .catch((err) => console.log(err))
-
-  }, [])
+  }, []);
   
   return (
     <div>

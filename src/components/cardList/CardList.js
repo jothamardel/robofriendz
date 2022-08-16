@@ -1,5 +1,5 @@
 
-import Card from './Card'
+import Card from '../card/Card'
 
 function CardList(props){
     
