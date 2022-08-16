@@ -1,6 +1,5 @@
 import SearchBox from './SearchBox';
 import CardList from './CardList';
-import users from './users.json';
 import "./App.css";
 import React from 'react';
 
@@ -9,33 +8,49 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchInput: ''
+      searchInput: '',
+      robots: [],
+      loading: false
     }
+
+    console.log('constructor')
   }
 
   updateSearchInput = (event) => {
-    console.log(event.target.value);
     this.setState({ searchInput: event.target.value })
+  }
+
+  componentDidMount() {
+    this.setState({ loading: true});
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(json => this.setState({ robots: json, loading: false}))
+    .catch((err) => console.log(err))
+
   }
 
 
 
   render() {
 
-    const filteredRobots = users.filter(item => (
+    const filteredRobots = this.state.robots.filter(item => (
       item.name.toLowerCase().includes(this.state.searchInput.toLowerCase())
-    ))
-
-    console.log("Filtered Robots: ", filteredRobots);
-
+    ));
     return (
       <div className="">
         <h1 style={{ textAlign: 'center' }}>Robofriends</h1>
         <SearchBox updateSearchInput={this.updateSearchInput}/>
+        {this.state.loading && <h1 style={{ textAlign: 'center'}}>Loading...</h1>}
+        {!filteredRobots.length && !this.state.loading && <h3 style={{ textAlign: 'center'}}>no result found</h3>}
         <CardList clients={filteredRobots}/>
       </div>
     );
   }
 }
+
+// hooks
+// routing
+// structure
 
 export default App;

@@ -2,9 +2,9 @@
 import Card from './Card'
 
 function CardList(props){
-    console.log(props)
+    
     return(
-        <div className='card-wrapper'>
+        <div className='card-wrapper' style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
         {
           props.clients.map((item) => (
             <Card 
